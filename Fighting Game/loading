@@ -1,0 +1,49 @@
+
+var ko=0, action=0, op_action=0, coll=0, score=0, life=100, op_strength=3,op_hit=0,counter=0,game_status=0
+//audio.play "kung_fu_fight_music" loop
+
+loading.print "Loading..." : pos (100,0,0) and font "game1" 
+skybox.show solar system
+
+bb is a static box : size (100,1,100) and pos (0,-15,0) and material="pond"
+b is a static orc_cabin : hidden and scale 50 and turn left 15 and shadow mode receive
+b.ArmatureAction loop
+
+//CanCanDance, DanceTwerk, LeftArmGuesture, Idle, RightArmGuesture, Go, Jump
+boss is a boss : hidden and pos (28,-10,16)
+boss.switch to character mode
+
+tg is a tiger3 : scale 0.04 and pos (13,-10,43)
+tg.switch to character mode
+tg."Idle_Lie Prone" loop
+
+player1 is a dynamic ninja2 : scale = 3 and pos (27,-10,29) and hidden and shadow mode cast
+and joints ("mixamorig:Head","mixamorig:LeftShoulder",
+"mixamorig:LeftArm","mixamorig:LeftForeArm","mixamorig:LeftHand",
+"mixamorig:RightArm","mixamorig:RightForeArm","mixamorig:RightHand",
+"mixamorig:LeftUpLeg","mixamorig:LeftLeg","mixamorig:LeftFoot",
+"mixamorig:RightUpLeg","mixamorig:RightLeg","mixamorig:RightFoot")
+
+player2 is a dynamic ninja2 : scale = 3 and pos (19,-6,6.5) and hidden and shadow mode cast
+and joints ("mixamorig:Head","mixamorig:LeftShoulder",
+"mixamorig:LeftArm","mixamorig:LeftForeArm","mixamorig:LeftHand",
+"mixamorig:RightArm","mixamorig:RightForeArm","mixamorig:RightHand",
+"mixamorig:LeftUpLeg","mixamorig:LeftLeg","mixamorig:LeftFoot",
+"mixamorig:RightUpLeg","mixamorig:RightLeg","mixamorig:RightFoot")
+
+
+player1.switch to character mode
+player2.switch to character mode
+
+b.show
+player1.show
+player2.show
+b.show
+boss.show
+player2.look at (player1)
+do async
+	wait 1 second
+	player1.look at (player2)
+end do
+
+loading.print ""

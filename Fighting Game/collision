@@ -1,0 +1,126 @@
+handle_collision = {
+
+	var dist = distance(player1,player2)
+	
+	if(action==0) {
+
+		// PUNCH
+		if(op_action==1 && dist < 6 && 
+		    (player2.data.hit_joint=="mixamorig:LeftHand" || player2.data.hit_joint=="mixamorig:RightHand") ) {
+			life=life-1
+			audio.play "hit2"
+			effects.flash.show : pos (player1) and duration=0.3 async
+			player1.move backward 0.2 for 0.2 seconds async
+			player1.HitReaction async
+			run shake_the_world async
+			return
+		}
+	
+	  // KICK
+		if(player2.data.hit_joint=="mixamorig:RightFoot") {
+			
+			if(op_action==2 || op_action==3 || op_action==4) {
+			  life=life-1
+				effects.flash.show : pos (player1) and duration=0.3 async
+				player1.move backward 0.2 for 0.2 seconds async
+				player1.HitReaction async	
+				audio.play "hit1"
+				run shake_the_world async
+				if(op_action==4) {
+					do async
+					  boss."Jump" 
+					  boss.LeftArmGuesture
+					  boss.Idle loop
+					end do
+					
+					player1.Knockout 
+					player1.StepBack
+					player1.Idle loop
+				}
+				return
+			}
+		}
+	
+	}
+	
+	//////////////////// OPPONENT HIT ///////////
+  if(op_hit==1) {
+  	return
+  }
+  
+	if(action==2 && dist<6 && player1.data.hit_joint=="mixamorig:RightFoot") {
+	  lasthit.print "last hit dist: "+dist: pos (800,100,0) and size=1 and color=red
+		op_hit=1
+		player2.move backward 0.2 for 0.3 seconds async
+		do async
+			wait 1 second
+			op_hit=0
+		end do
+		
+		op_strength=op_strength-1
+		effects.flash.show : pos (player2) and duration=0.3 and end size=30 async
+	  player1.move backward 0.3 for 0.1 seconds async
+	  audio.play "hit1"
+	  
+	  // CHECK ENEMY STRENGTH 
+	  if(op_strength==0) {
+	  	do async
+	  	  boss.DanceTwerk 
+	  	  boss.Idle loop
+	  	end do
+	  	
+	  	ko=1
+	  		  	
+	  	op.print "knockout"
+	  	player2.Knockout
+	  	wait 3 seconds
+	  	player2.KickUp 
+	  	player2.BoxingIdle loop
+      op_strength=3
+      op.print ""
+      ko=0
+	  } else {
+	    
+	  	player2.HitReaction async	
+	  	if(rnd(3)==1) {
+	  		do async
+	  		  boss."Jump"
+	  		  boss.Idle loop
+	  		end do
+	  	} else {
+	  	  do async
+	  	    boss.RightArmGuesture
+	  	    boss.Idle loop
+	  	  end do
+	  	}
+	  	
+	  }
+	  
+ 	  player2.move backward 0.3 for 0.1 seconds
+	  
+	} else if (dist<4) {
+		player1.move backward 0.3 for 0.1 seconds async
+	  player2.move backward 0.3 for 0.1 seconds
+	
+	}
+
+}
+
+when player1 collides with player2 do
+
+	if(coll==0) {
+		
+		coll=1
+		
+		do async
+		  msg3.print "player1: "+player1.data.hit_joint+", player2: "+player2.data.hit_joint : pos (200,100,0)
+		  wait 1 second
+		  msg3.print ""
+		end do
+		
+		run handle_collision
+		coll=0
+	
+	}
+	
+end do

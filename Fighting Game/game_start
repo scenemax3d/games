@@ -1,0 +1,22 @@
+
+game_start = {
+	camera.attach to boss : pos (0,2.4,5)
+	do async
+    boss.Idle
+
+    audio.play "countdown3"
+    msg.print "Ninja, FIGHT!" : pos (500,400,0) and color=green and size=3 and font="yoshi"
+    boss.Go 
+    boss.Idle loop
+		
+		wait 2 seconds
+	
+    camera.chase player1  : vertical rotation=5		
+    msg.print ""
+    game_status=1
+  end do
+	  
+}
+
+run game_start
+

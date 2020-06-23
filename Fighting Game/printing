@@ -1,0 +1,22 @@
+print_pos = {
+	sys.print player1.x+","+player1.y+","+player1.z+","+distance(player1,player2)
+}
+run print_pos every 1 second
+
+
+print_status = {
+  if(life<0) {
+  	life=0
+  }
+	score.print "Score: "+score : pos (0,0,0) and font "yoshi" and color=green and size=4
+	life.print "Life: "+life : pos (700,0,0) and font "yoshi" and color=yellow and size=4
+	op.print "Strength: "+op_strength : pos (0,60,0) and font "yoshi" and color=red
+	
+	if(life==0) {
+		run game_over
+	}
+
+	
+}
+run print_status every 1 second
+
