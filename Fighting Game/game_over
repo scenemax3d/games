@@ -1,0 +1,9 @@
+game_over = {
+	game_status=2 // game over
+	msg.print "GAME OVER" : pos (500,400,0) and color=red and size=3 and font="yoshi"
+	when key p is pressed do
+		msg.print ""
+		game_status=1
+	end do
+}
+

@@ -1,0 +1,24 @@
+canvas.size 1680,1050
+
+add "loading","input" code
+add "game_start", "game_over", "printing" code 
+
+add "boss_ai", "enemy_ai", "collision" code
+
+player1.Idle loop
+player2.BoxingIdle loop
+
+
+shake_the_world = {
+	camera.chase stop
+	do 2 times
+   camera.move backward 0.05 in 0.051 seconds	
+   camera.move forward 0.05 in 0.051 seconds
+  end do
+  camera.chase player1
+}
+
+
+
+
+

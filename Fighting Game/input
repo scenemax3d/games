@@ -1,0 +1,70 @@
+var dbg=0
+when key P is pressed once do
+if(dbg==0){
+	dbg=1
+  debug.on
+} else {
+	dbg=0
+	debug.off
+}
+end do
+
+when key left is pressed do
+  player1.turn left 5 in 0.1 seconds async
+end do
+
+when key right is pressed do
+  player1.turn right 5 in 0.1 seconds async
+end do
+
+var up_anim=0
+when key up is pressed do
+
+  player1.move forward 0.2 for 0.1 seconds async
+ 
+  if(up_anim==0) {
+  	up_anim=1
+  	do async
+  		player1.StepForward at speed of 2
+  		player1.Idle loop
+  	  up_anim=0
+    end do
+  }
+  
+end do
+
+when key down is pressed do
+  
+  player1.move backward 0.2 for 0.1 seconds async
+end do
+
+
+when key space is pressed once do
+  player1.Backflip at speed of 1.5
+  player1.Idle loop
+end do
+
+when key A is pressed once do
+	action=2
+	audio.play "leg_sweep"
+	player1.SideKick at speed of 2
+	player1.Idle loop
+	action=0
+end do
+
+when key S is pressed once do
+	action=2
+	audio.play "leg_sweep"
+	player1.RoundKick at speed of 2
+	player1.Idle loop
+	action=0
+end do
+
+when key D is pressed once do
+	action=1
+	audio.play "punch1"
+	player1.LegSweep at speed of 2
+	player1.Idle loop
+	action=0
+end do
+

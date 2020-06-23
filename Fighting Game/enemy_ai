@@ -1,0 +1,81 @@
+
+//UpperCut, StepBack, HitReaction, LegSweep, Knockout, KickUp, Punch, BoxingIdle, StepForward, RoundKick, Idle, 
+//Backflip, SideKick, MMAKick
+opponent_ai = {
+  
+  if(game_status!=1) {
+  	return
+  }
+  
+  if(op_hit==1) {
+  	return
+  }
+  
+  if(ko==1) {
+  	return
+  }
+	
+	if(op_action!=0) {
+		return
+	}
+
+  var dist = distance(player1,player2)
+  counter=counter+1
+  ai.print "AI Pulse :"+ counter+":"+dist:pos(0,600,0) and size=1
+  if(dist>=6) {
+		  
+		  player2.look at (player1)
+	    player2.StepForward at speed of 1.5 async
+			player2.move forward 0.1 for 0.3 seconds
+			if(distance(player1,player2)<7) {
+				player2.SideKick at speed of 2
+			}
+			op_action=0
+	} else if (dist<3.5) {
+	    op_action=1
+	    audio.play "punch1"
+			player2.UpperCut at speed of 1.5
+			player2.BoxingIdle loop
+			op_action=0
+			
+	} else if (dist<4.5) {
+      op_action=2
+      audio.play "leg_sweep"
+			player2.LegSweep at speed of 1.5
+			op_action=0
+			player2.BoxingIdle loop
+	}	else if (dist>=4.5) {
+
+      if(dist>5.3) {
+      	player2.StepForward at speed of 1.5 async
+			  player2.move forward 0.1 for 0.2 seconds
+      }
+      
+      var ac = rnd(2)
+      if(ac==1) {
+        op_action=3
+        player2.SideKick at speed of 1.5
+      } else {
+      	op_action=4
+      	audio.play "hu_ya1"
+			  player2.MMAKick at speed of 1.5
+      }
+			op_action=0
+			player2.BoxingIdle loop
+
+	}
+
+	
+}
+
+run opponent_ai every 1 second
+
+
+rest = {
+	op_strength=op_strength+1
+	if(op_strength>3) {
+		op_strength=3
+	}
+}
+run rest every 10 seconds
+
