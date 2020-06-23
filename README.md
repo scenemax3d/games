@@ -12,7 +12,8 @@ To run and make changes to this game you will need to have both the source code 
 
 Source code
 ------------
-Can be downloaded from the Fighting Game folder
+Can be downloaded from the Fighting Game folder:
+https://github.com/scenemax3d/games/tree/master/Fighting%20Game
 
 Assets
 -------
