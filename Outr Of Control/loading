@@ -1,0 +1,36 @@
+skybox.show solar system
+var yOffset = -80
+s is a sphere : radius 0.21 and material="alpha"
+fo is a static treecko : scale 15 and pos(0,0,-150)
+//b is a static box : size(100,1,100) and material="pond"
+c is a static letter_c : scale 0.5 and rotate(-90,0,0) and pos (-11,yOffset,0)
+t is a static letter_t : scale 0.5 and rotate(-90,rnd(360),0) and pos (16,yOffset,0)
+r is a static letter_r : scale 0.5 and rotate(-90,rnd(360),0) and pos (42,yOffset,0)
+l is a static letter_l : scale 0.5 and rotate(-90,0,0) and pos (67,yOffset,0)
+
+car is a pickup_truck vehicle : pos (-2,-50,5) 
+s.attach to car : pos (0,0,0)
+car.show tacho
+car.show speedo
+
+//lights.add probe "probe1"
+
+camera.chase car : horizontal rotation=180 and vertical rotation=15 
+
+g is a goblin1 : scale 0.1 and pos(73,-54,9)
+g."Take 001" loop
+
+rotate_goblin = {
+  if(game_state==3) {
+  	run jump (g) async
+  }
+	g.turn 360 in 5 seconds
+	run rotate_goblin
+}
+
+run rotate_goblin async
+
+# jump
+
+
+

@@ -1,0 +1,58 @@
+
+var turn_val = 5
+
+when key space is pressed once do
+  c.rotate(-90,0,0)
+  car. pos (-2,27,5)
+  run reset_hour
+
+end do
+
+when key left is pressed do
+	if(selected_letter==1) {
+		c.turn left turn_val in 0.1 seconds	
+	} else if(selected_letter==2) {
+		t.turn left turn_val in 0.1 seconds
+	} else if(selected_letter==3) {
+		r.turn left turn_val in 0.1 seconds
+	} else if(selected_letter==4) {
+		l.turn left turn_val in 0.1 seconds
+	}
+	
+end do
+
+when key right is pressed do
+if(selected_letter==1) {
+		c.turn right turn_val in 0.1 seconds	
+	} else if(selected_letter==2) {
+		t.turn right turn_val in 0.1 seconds
+	} else if(selected_letter==3) {
+		r.turn right turn_val in 0.1 seconds
+	} else if(selected_letter==4) {
+		l.turn right turn_val in 0.1 seconds
+	}
+end do
+
+when key Up is pressed do
+	if(selected_letter==1) {
+		t.turn left turn_val in 0.1 seconds	
+	} else if(selected_letter==2) {
+		r.turn left turn_val in 0.1 seconds
+	} else if(selected_letter==3) {
+		l.turn left turn_val in 0.1 seconds
+	} 
+	
+end do
+
+when key Down is pressed do
+if(selected_letter==1) {
+		t.turn right turn_val in 0.1 seconds	
+	} else if(selected_letter==2) {
+		r.turn right turn_val in 0.1 seconds
+	} else if(selected_letter==3) {
+		l.turn right turn_val in 0.1 seconds
+	} 
+end do
+
+
+

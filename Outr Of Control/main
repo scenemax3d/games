@@ -1,0 +1,20 @@
+canvas.size 1400,800
+audio.play "walking1" loop
+//debug.on
+var selected_letter=1, hr=0,game_state=0,time=0
+
+msg1.print "Get The Goblin Before Midnight" : font "yoshi" and color yellow and size 2 and pos(0,0,0)
+msg.print "Use Left/Right Arrows to rotate the ACTIVE letter" + newline +
+           "Use Left/Right Arrows to rotate the NEXT letter"+newline+
+           "Y - Engine start" + newline +
+           "W - Forward" + newline +
+           "A - Left" + newline +
+           "D - Right" + newline +
+           "E - Reverse" + newline +
+           "S - Stop" + newline+
+           "R - Reset Car" + newline +"SPC - Return To Start Position" : pos(0,50,0) and font "yoshi" and size =1
+
+
+add "loading", "input", "utils","collision" code
+
+

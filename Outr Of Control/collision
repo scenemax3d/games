@@ -1,0 +1,41 @@
+
+
+when car collides with g do
+  game_state=3
+	sys2.print "COOL! You Got The Gblin" :  pos (450,350,0) and font "game1" and size = 3 and color = green
+	c.hide
+	t.hide
+	r.hide
+	l.hide
+	g.switch to character mode
+end do
+
+//when s collides with b do
+//  game_state=2
+//	sys2.print "GAME OVER"  : pos (550,350,0) and font "game1" and size = 3 and color = red
+//
+//	wait 5 seconds
+//	c.rotate(-90,0,0)
+//	car. pos (-2,27,5)
+//	camera.chase car : horizontal rotation=180 and vertical rotation=15
+//
+//end do
+
+when s collides with c do
+//run reset_hour
+selected_letter=1
+end do
+
+when s collides with t do
+//run reset_hour
+selected_letter=2
+end do
+
+when s collides with r do
+//run reset_hour
+selected_letter=3
+end do
+
+when s collides with l do
+selected_letter=4
+end do
