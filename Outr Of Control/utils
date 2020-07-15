@@ -1,0 +1,37 @@
+update_hour = {
+  
+  if(game_state>=2) {
+  	return
+  }
+  
+  hr=hr+0.05
+  if(hr>24) {
+  	hr=0
+  }
+  skybox.hour=hr
+	sys.print "Hour: "+round(hr) : pos (550,50,0) and font "game1" and size = 3 and color = yellow
+  time.print "Time: "+round(time) : pos (800,50,0) and font "game1" and size = 3 and color = green
+
+}
+run update_hour every 0.2 second
+
+update_time = {
+	if(game_state==3) {
+		stop
+	}
+	time=time+1
+}
+run update_time every 1 second
+
+reset_hour = {
+
+  if(game_state>=2) {
+  	return
+  }
+
+	hr=0
+	audio.play "coin1"
+	sys2.print "Great!! You have full 24 hours" : pos (200,150,0) and font "game1" and size = 3 and color = yellow
+	wait 5 seconds
+	sys2.print ""
+}
