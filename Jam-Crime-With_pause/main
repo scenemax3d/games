@@ -1,0 +1,52 @@
+canvas.size 1200,800
+audio.play "riser1" loop
+
+var score = 0, life = 10, pause_counter=0, pause_limit=3, enemy_count=0, game_status=-1, enemy_hit_counter=0
+
+skybox.show solar system
+
+print_instructions = {
+	msg1.print "Flying Gangsters Are In Town!"+newline+
+	           "Pause More Than 3 Seconds To Get Them Down" + newline +
+	           "Press F to Jump, Arrows To Move" + newline +
+	           "Press Space to Shoot" + newline +
+	           "Be Careful From The Gangster's Bottles" + newline +
+	           "You Are Safe Behind The Police Car" 
+	            : pos (400,300,0)
+	msg2.print "Press S to Start" : pos (450,600,0) and font = "yoshi" and color=yellow
+}
+
+run print_instructions
+
+when key S is pressed once do
+	if(game_status==-1) {
+		msg1.print ""
+		msg2.print ""
+		game_status=0
+	}
+end do
+
+pcar is a police_car1 : scale 2 and pos (0,30,-20) and hidden
+
+b is a static crime_city1
+//b is a static box : size (50,1,50) and material="pond"
+cop is a dynamic cop : pos (0,1,0) and turn 180
+cop.data.ht=0
+
+camera.attach to cop : pos (0,8,-14) and rotate (-20,0,0)
+s is a sight sprite
+s.attach to cop : pos (0,4,20)
+
+add "utils", "enemy_hit" code
+add "enemies", "gauges", "input" ,"game_over", "police_car_strategy" code
+
+
+function jump(m) = do
+    var step=0.4
+    Do 21 times
+        m.move(y+step) in 0.05 seconds
+        step=step-0.04
+    End do
+    
+end do
+

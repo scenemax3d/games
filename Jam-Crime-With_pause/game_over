@@ -1,0 +1,26 @@
+
+game_start = {
+
+	score=0
+	life=10
+	cop.pos(0,1,0)
+	pcar.mass=0
+	pcar.pos(	0,30,-20)
+	game_status=0
+	pause_counter=0
+	enemy_hit_counter=0
+}
+
+
+game_over = {
+	game_status=3
+	go.print "GAME OVER" : pos (400,400,0) and size=3 and color=red and font = "game1"
+	go2.print "press P to start" : pos (500,500,0) and font = "yoshi"
+
+	when key P is pressed once do
+	  go.print ""
+	  go2.print ""
+		run game_start
+	end do
+	
+}

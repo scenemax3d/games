@@ -1,0 +1,21 @@
+
+print_status = {
+
+  if(game_status==0) {
+    pause_counter=pause_counter+0.5
+  }
+  
+	score.print "Score: "+score : pos (0,0,0) and size=2 and font "yoshi"
+	life.print "Life: "+life : pos (800,0,0) and size=2 and font "yoshi"
+
+	if(pause_counter>pause_limit) {
+		pc.print "Pause: "+pause_counter : pos (400,0,0) and size=3 and font "yoshi" and color=green
+		
+	} else {
+	  pc.print pause_counter : pos (400,0,0) and size=3 and font "yoshi" and color=white
+	}
+	
+}
+
+run print_status every 0.5 seconds
+

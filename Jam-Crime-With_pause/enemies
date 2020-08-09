@@ -1,0 +1,110 @@
+
+rotate_bottle(b) = {
+	b.rotate(y+360) in 0.5 seconds
+	run rotate_bottle(b) async
+}
+
+enemy_shoot(e) = {
+  
+  if(game_status!=0) {
+  	return
+  }
+  
+	if(e.data.mv==1 && e.data.shoot==0) {
+	  if(rnd(3)==1) {
+	  
+		  e.data.shoot=1
+			e.Go at speed of 2 async
+			wait 0.5 seconds 
+			
+			bt is a bottle1 : scale=3 and pos (e)
+			audio.play "shoot1"
+			when bt collides with pcar do
+        bt.hide
+        effects.explosion.show : pos(pcar) and duration=0.5 and end size=30 async
+        pcar.rotate(z+360) in 1 second async
+        do rnd(5) times
+          run jump (pcar) async
+        end do
+        
+			end do
+			
+			when bt collides with cop do
+			  if(cop.data.ht!=0) {
+			  	return
+			  }
+			  cop.data.ht=1
+			  effects.flash.show : pos (cop) and duration=1 and end size=30 async
+			  run shake async
+			  audio.play "mayday"
+			  
+			  bt.hide
+				life=life-1
+				if(life<=0) {
+					life=0
+					run game_over
+				}
+			end do
+			run rotate_bottle(bt) async
+			bt.move to (cop.x,cop.y+4,cop.z)+5 in 2+rnd(5) seconds
+			bt.hide
+			e.data.shoot=0
+	  }
+	}
+}
+
+enemy_visible (e) = {
+    
+	if(pause_counter<pause_limit) {
+		if(e.data.mv==0) {
+		  e.data.mv=1
+		  e.move up 10 in 0.1 seconds
+		  
+		}
+	} else {
+		if(e.data.mv==1) {
+		  e.data.mv=2
+		  e.move down 10 in 0.1 seconds
+		  e.data.mv=0
+	  }
+	}
+	
+	run enemy_shoot(e) async
+	wait 0.5 seconds
+	run enemy_visible(e) async
+}
+
+move_enemy(m,x1,z1) = {
+	
+	m.move left x1 in 1 second
+  m.move right x1*2 in 1 second
+  m.move left x1 in 1 second
+
+	wait rnd(10) seconds
+	run move_enemy(m,x1,z1) async
+}
+
+load_enemy = {
+
+	if(enemy_count>=5) {
+		return
+	}
+
+	var x1=-40+rnd(80), z1=-40+rnd(10)
+	e1 is a boss : pos (x1,3,z1 )
+	e1 belongs to the enemies group
+	e1.data.mv=0
+  e1.data.shoot=0
+  
+  enemy_count=enemy_count+1
+
+  run enemy_visible(e1) async
+	run move_enemy(e1,x1,z1) async
+	wait 1+rnd(10) seconds
+	run load_enemy
+	
+}
+
+wait rnd(5) seconds
+run load_enemy async
+

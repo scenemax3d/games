@@ -1,0 +1,39 @@
+
+reduce_pause = {
+	pause_counter=pause_counter-0.5
+	if(pause_counter<0) {
+		pause_counter=0
+	}
+}
+
+when key left is pressed do
+run reduce_pause
+cop."Left" async
+cop.move left 1 in 0.1 seconds
+end do
+
+when key right is pressed do
+run reduce_pause
+cop."Right" async
+cop.move right 1 in 0.1 seconds
+end do
+
+when key F is pressed do
+  run jump(cop) async
+end do
+
+when key space is pressed once do
+
+   effects.explosion.show having pos=(s) and duration=0.2 async
+   if enemies.ray check from (s) then do
+     
+     run enemy_hit (enemies.hit) async
+   end do
+
+   cop.Shoot async
+   run shake async
+   audio.play "gun1"
+   
+   
+end do
+

@@ -1,0 +1,47 @@
+
+you_win = {
+	game_status=2
+	go.print "You Win!" : pos (400,400,0) and size=3 and color=red and font = "game1"
+	go2.print "press P For Next Level" : pos (500,500,0) and font = "yoshi"
+
+	when key P is pressed once do
+	  go.print ""
+	  go2.print ""
+		run game_start
+	end do
+
+}
+
+enemy_hit (e) = {
+	
+	if(e.data.mv==1) {
+		  e.data.mv=2
+		  e.move down 10 in 0.1 seconds
+		  e.data.mv=0
+	  }
+
+	if(game_status!=0) {
+  	return
+  }
+  
+	if(e.data.mv>2) {
+		return
+	}
+  
+  enemy_hit_counter=enemy_hit_counter+1
+  if(enemy_hit_counter>=5) {
+  	run you_win
+  }
+  e.data.mv=3
+	score=score+5
+	effects.explosion.show : pos (e) and duration=1 async
+	var x1=-40+rnd(80), z1=-40+rnd(10)
+  e.rotate (y+360) in 0.5 second
+  e.move up 20 in 0.1 seconds
+	wait rnd(10) seconds
+	e.move down 20 in 0.1 seconds
+	e.data.mv=0
+	enemy_hit_counter=enemy_hit_counter-1
+
+}
+

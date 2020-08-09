@@ -1,0 +1,20 @@
+
+car_strategy = {
+  if(score>0 && score%10==0) {
+  		if(pcar.data.fall==0) {
+  		  pcar.show
+  			pcar.data.fall=1
+  		  pcar.mass=90
+  		  when pcar is static for 1 seconds do
+					pcar.mass=0
+					pcar.turn 90+rnd(250) in 3 seconds
+					
+        end do
+        
+  		}
+  		
+  }
+}
+
+run car_strategy every 5 seconds
+
