@@ -1,0 +1,50 @@
+
+start_next_stage = {
+  audio.play "success1"
+  level=level+1
+  if(level%2==0) {
+  	audio.stop "cartoon1"
+  	audio.play "intro1" loop
+  } else {
+  	audio.stop "intro1"
+  	audio.play "cartoon1" loop
+  }
+  level.print "Level "+round(level) : pos (400,300,0) and font "yoshi" and size 5 and color orange
+  gameover.draw clear
+  if(level==2) {
+  	b.material="desert1"
+  } else if(level==3) {
+  	b.material="desert2"
+  } else if(level==4) {
+  	b.material="desert4"
+  } else if(level==5) {
+    b.material="desert5"
+  } else if(level==6) {
+    b.material="desert6"
+  } else if(level==7) {
+    b.material="desert7"
+  } else if(level==8) {
+    b.material="desert8"
+  } else if(level==9) {
+    b.material="desert9"
+  } else {
+  	b.material="desert3"
+  }
+  
+  
+  game_status=3
+  timer=60
+	active_balls=0
+	balls_limit=balls_limit+1
+  
+  p.hip_hop async
+  p.pos(0,5,0)
+  p.character.jump at speed of 20
+  p.jog at speed of 3
+  
+  game_status=1
+	p.running loop
+	run move_mouse async
+  run throw_ball
+  level.print ""
+}

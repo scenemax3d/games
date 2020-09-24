@@ -1,0 +1,58 @@
+pn is a phoenix : pos(b.x,b.y+100,b.z) and scale = 0.01
+pn.fly loop
+
+features = {
+
+	if(level>10) {
+		if(rnd(10)==0) {
+			run throw_fire_bomb	
+		}
+
+	} else if(level>7){
+		if(rnd(15)==0) {
+			run throw_fire_bomb	
+		}		
+	} else if(level>5){
+		if(rnd(20)==0) {
+			run throw_fire_bomb	
+		}		
+	} else if(level>2) {
+		if(rnd(25)==0) {
+			run throw_fire_bomb	
+		}
+	}
+
+}
+
+run features every 1 second
+
+throw_fire_bomb={
+  
+	pn.move to(p.x,p.y+5,p.z) in 1+rnd(3) seconds
+	fb is a cherry_bomb : pos (pn) and mass=3 and shadow mode cast
+	fb.data.status=0
+	when fb is static for 0.5 seconds do
+	  fb.data.status=1
+		effects.flame.show : pos (fb) and radius = 1 and duration 10+rnd(10)
+    fb.mass=0
+    run jump(fb)
+    fb.hide
+	end do
+
+	when fb collides with p do
+	  if(fb.data.status==0) {
+	    run shake async
+  	  //p.move backward 0.8 for 0.3 seconds
+	  } else {
+	    effects.flash.show : pos (p) and duration=0.5 and end size=30 async
+	    run shake
+	    p.move backward 0.5 for 0.3 seconds
+	  	timer=timer-10
+	  	if(timer<0) {
+	  		timer=0
+	  		run game_over
+	  	}
+	  }
+	end do
+	
+}

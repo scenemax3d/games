@@ -1,0 +1,38 @@
+
+show_intro = {
+  run dance async
+	inst.print "Collect All Cheese On Time"+newline+
+	           "Press S To Start" + newline+ "Press Left/Right To Turn" +newline+"Press Up/Down To Adjust Speed" : color blue
+
+	inst2.print "Graphics:"+newline+
+	            "=========="+newline+
+	            "Mouse Model - Mixamo.com"+newline+
+	            "Cheese: adLucem - sketchfab.com/3d-models/cheese-toon-8033038875de41c69ca281f92ab94aa6"+newline+
+	            "Bomb: flogo - sketchfab.com/3d-models/cherry-bomb-dbcfd63c7a5442b598f18edd3b38e3d7"+newline+newline+
+	            "Music:"+newline+
+	            "=========="+newline+
+	            "Banjo Music: mrthenoronha - freesound.org/people/Mrthenoronha/sounds/513869/"+newline+
+	            "Intro loop: mrthenoronha - freesound.org/people/Mrthenoronha/sounds/520937/"+newline+
+	            "Success: rhodesmas - freesound.org/people/rhodesmas/sounds/320653/"+newline 
+	            : pos (100,500,0) and size 1
+	inst3.print "A Game By: Adi Barda" : pos (1000,600,0) and font "yoshi" and size 2 and color orange
+            
+	when key S is pressed once do
+	  
+	  if(game_status==0) {
+	    inst.print ""
+	    inst2.print ""
+	    inst3.print ""
+	    run start_next_stage
+	  }
+	end do        
+}
+
+dance = {
+	if(game_status==0) {
+	  p.turn left rnd(360) in 0.3+rnd(3) seconds
+	  p.turn right rnd(360) in 0.3+rnd(3) seconds
+	  run dance async
+	}
+}
+

@@ -1,0 +1,17 @@
+
+game_over = {
+  level=0
+  game_status=2
+  balls_limit=1
+	gameover.draw game_over1 : size (500,300) and pos(500,150)
+  p.entry loop
+  do 10 times async
+    p.character.jump
+    wait 0.5 seconds
+  end do
+
+  do 50 times
+    run throw_fire_bomb
+  end do
+  
+}

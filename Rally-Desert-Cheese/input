@@ -1,0 +1,21 @@
+
+when key left is pressed do
+p.turn left 15 in 0.1 seconds
+end do
+
+when key right is pressed do
+p.turn right 15 in 0.1 seconds
+end do
+
+when key up is pressed once do 
+spd=spd+0.1
+end do
+
+when key down is pressed once do 
+spd=spd-0.1
+if(spd<0.1) { spd=0.1 }
+end do
+
+when key space is pressed once do
+p.character.jump at speed of 10
+end do

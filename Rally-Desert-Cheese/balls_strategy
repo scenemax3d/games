@@ -1,0 +1,85 @@
+
+throw_ball = {
+   
+  active_balls=active_balls+1
+
+	if(active_balls>balls_limit) {
+	  active_balls=balls_limit
+		return
+	}
+	
+	var posx=-45+rnd(90), posy=b.y+5+rnd(5),posz=-45+rnd(90)
+	s is a cheese1 : pos(posx,posy+1,posz) and scale 0.2 and mass=0.2 and shadow mode cast
+	s.data.falling=1
+	var elfactor = 10-level
+	if(elfactor<3) {
+		elfactor=3
+	}
+  if(rnd(elfactor)==0) {
+  	run add_elevator(posx,posy,posz) async 
+  }
+	
+	when s is static for 0.5 second do
+    s.data.falling=0
+    s.mass=0
+    s.rotate(0,0,0)
+    s.move up 1 in 0.1 second
+    wait 45 seconds
+    s.mass=0.2
+	end do
+	
+	when s collides with p do async
+	  run shake async
+	  active_balls=active_balls-1
+	  audio.play "coin2"
+	  s.data.coll=1
+	  s.mass=0
+	  do 1+rnd(4) times
+	    run jump(s) async
+	  end do
+	  run jump(s)
+	  score=score+10
+		s.hide
+
+		if(active_balls==0) {
+			run start_next_stage
+		}
+	end do
+	
+	run ball_ai(s) async
+	wait ball_rate seconds
+	run throw_ball async
+}
+
+ball_ai(s)={
+  if(s.data.coll==1) {
+		return
+	}
+
+  if(s.data.falling==0) {
+    var tm = 1+rnd(8)
+    effects.TimeOrbit.show : pos (s.x,s.y+2,s.z) and end size = 5 and duration = tm
+	  //s.rotate(y+360) in tm seconds
+  }
+  
+	wait 0.5 seconds
+	run ball_ai(s) async
+}
+
+add_elevator(px,py,pz) = {
+	e is a static box: material="pond" and size(2,0.2,2) and pos(px,py,pz-0.5)
+	wait 45 seconds
+	e.hide
+}
+
+shake={
+	camera.chase stop
+	do 3 times
+    camera.move left 0.3 in 0.1 seconds
+    camera.move right 0.3 in 0.1 seconds
+	end do
+	camera.chase p : trailing=true and vertical rotation=15
+
+}
+
+

@@ -1,0 +1,65 @@
+using desert1,desert2,desert3,desert4,desert5,desert6,desert7,desert8,desert9 sprite
+var spd = 0.1, score=0, game_status=0, timer=10, level=0
+var ball_rate = 0.5, active_balls=0, balls_limit=1
+canvas.size 1500,800
+header.print "Loading..." : pos (0,0,0) and font "yoshi" and color=green
+audio.play "cartoon1" loop //intro1
+skybox.show solar system
+b is a static box : pos(0,10,0) and material="desert3" and size (50,1,50) and shadow mode receive
+
+p is a mousey : pos (0,b.y+2,0) and shadow mode cast and turn left 90
+p.switch to character mode
+camera.chase p: trailing=true and vertical rotation=15
+//minimap.show : follow p and height=b.y+10
+
+add "next_stage_strategy", "input", "balls_strategy", "instructions","game_over","extra_features_strategy" code
+header.print ""
+
+run show_intro
+p.hip_hop loop
+
+//running, entry, hip_hop, jog, shoot_arrow, walk_right, walk_left
+move_mouse = {
+  if(game_status!=1) {
+  	return
+  }
+	p.move forward spd for 0.1 seconds
+	run move_mouse async
+}
+
+status = {
+	header.print "Score: "+round(score) : pos (0,0,0) and font "yoshi" and color=green
+	header2.print "Time: "+round(timer) : pos (700,0,0) and font "game1" and color = orange
+	header3.print "Cheese: "+round(active_balls) : pos (1200,0,0) and font="yoshi" and color=yellow
+
+	if( p.y<-10) {
+	  p.entry loop
+		oops.print "OOPS!$! " : pos (400,200,0) and font "yoshi" and size 5 and color yellow
+    oops2.print "I'm falling to infinity so close the window and restart the game" : pos (100,270,0)  and size 2 and color green
+		stop
+	}
+	
+}
+run status every 0.5 seconds
+
+timer = {
+  if(game_status!=1) {
+  	return
+  }
+
+	timer=timer-0.5
+	if(timer<=0) {
+		run game_over
+	}
+}
+run timer every 0.5 seconds
+
+function jump(m) = do
+    var step=0.4
+    Do 21 times
+        m.move(y+step) in 0.05 seconds
+        step=step-0.04
+    End do
+    
+end do
+
