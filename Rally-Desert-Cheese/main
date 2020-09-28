@@ -1,7 +1,8 @@
-using desert1,desert2,desert3,desert4,desert5,desert6,desert7,desert8,desert9 sprite
+using desert1,desert2,desert3,desert4,desert5,desert6,desert7,desert8,desert9,rally_cheese_poster,rally_cheese_game_over,game_over1 sprite
 var spd = 0.1, score=0, game_status=0, timer=10, level=0
-var ball_rate = 0.5, active_balls=0, balls_limit=1
-canvas.size 1500,800
+var ball_rate = 0.5, active_balls=0, balls_limit=1,is_throwing_balls=0
+canvas.size 1500,800 
+sys.draw rally_cheese_poster : size(1500,800)
 header.print "Loading..." : pos (0,0,0) and font "yoshi" and color=green
 audio.play "cartoon1" loop //intro1
 skybox.show solar system
@@ -17,6 +18,7 @@ header.print ""
 
 run show_intro
 p.hip_hop loop
+sys.draw clear
 
 //running, entry, hip_hop, jog, shoot_arrow, walk_right, walk_left
 move_mouse = {
@@ -28,9 +30,9 @@ move_mouse = {
 }
 
 status = {
-	header.print "Score: "+round(score) : pos (0,0,0) and font "yoshi" and color=green
-	header2.print "Time: "+round(timer) : pos (700,0,0) and font "game1" and color = orange
-	header3.print "Cheese: "+round(active_balls) : pos (1200,0,0) and font="yoshi" and color=yellow
+	header.print "Score: "+round(score) : pos (0,10,0) and font "yoshi" and color=green
+	header2.print "Time: "+round(timer) : pos (700,10,0) and font "game1" and color = orange
+	header3.print "Cheese: "+round(active_balls) : pos (1200,10,0) and font="yoshi" and color=yellow
 
 	if( p.y<-10) {
 	  p.entry loop

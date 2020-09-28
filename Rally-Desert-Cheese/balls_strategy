@@ -4,6 +4,7 @@ throw_ball = {
   active_balls=active_balls+1
 
 	if(active_balls>balls_limit) {
+	  is_throwing_balls=0
 	  active_balls=balls_limit
 		return
 	}
@@ -39,9 +40,9 @@ throw_ball = {
 	  end do
 	  run jump(s)
 	  score=score+10
-		s.hide
+		s.kill
 
-		if(active_balls==0) {
+		if(active_balls==0 && is_throwing_balls==0) {
 			run start_next_stage
 		}
 	end do
@@ -67,9 +68,8 @@ ball_ai(s)={
 }
 
 add_elevator(px,py,pz) = {
-	e is a static box: material="pond" and size(2,0.2,2) and pos(px,py,pz-0.5)
-	wait 45 seconds
-	e.hide
+	elv is a static box: material="pond" and size(2,0.2,2) and pos(px,py,pz-0.5)
+
 }
 
 shake={

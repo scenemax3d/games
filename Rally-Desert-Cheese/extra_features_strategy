@@ -31,6 +31,11 @@ throw_fire_bomb={
 	pn.move to(p.x,p.y+5,p.z) in 1+rnd(3) seconds
 	fb is a cherry_bomb : pos (pn) and mass=3 and shadow mode cast
 	fb.data.status=0
+	do async
+    wait 3 seconds
+    pn.move up 50 in 0.5 second
+	end do
+	
 	when fb is static for 0.5 seconds do
 	  fb.data.status=1
 		effects.flame.show : pos (fb) and radius = 1 and duration 10+rnd(10)

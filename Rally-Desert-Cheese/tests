@@ -1,11 +1,4 @@
 
 b is a ninja
-b.show outline
-do 10 times
-wait 1 second
+b.kill
 b.hide
-wait 1 second
-b.show
-b.show outline
-
-end do

@@ -10,8 +10,12 @@ game_over = {
     wait 0.5 seconds
   end do
 
-  do 50 times
+  do 20 times async
     run throw_fire_bomb
   end do
+
+  wait 10 seconds
+  sys.draw rally_cheese_game_over : size(1500,800)
+
   
 }

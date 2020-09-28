@@ -1,9 +1,22 @@
 
 show_intro = {
+  
   run dance async
 	inst.print "Collect All Cheese On Time"+newline+
-	           "Press S To Start" + newline+ "Press Left/Right To Turn" +newline+"Press Up/Down To Adjust Speed" : color blue
-
+	           "Press Left/Right To Turn" +newline+"Press Up/Down To Adjust Speed" : 
+	           pos(70,150,0) and color pink and font "yoshi"
+  
+  do 100 times async
+    if(game_status==1) {
+    	return
+    }
+    inst4.print "Press S To Start" : pos (600,300,0) and color blue and font "yoshi"
+	  wait 0.5 seconds
+	  inst4.print ""
+	  wait 0.5 seconds
+    
+	end do
+	
 	inst2.print "Graphics:"+newline+
 	            "=========="+newline+
 	            "Mouse Model - Mixamo.com"+newline+

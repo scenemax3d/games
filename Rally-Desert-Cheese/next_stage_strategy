@@ -9,7 +9,7 @@ start_next_stage = {
   	audio.stop "intro1"
   	audio.play "cartoon1" loop
   }
-  level.print "Level "+round(level) : pos (400,300,0) and font "yoshi" and size 5 and color orange
+  level.print "Level "+round(level) : pos (600,300,0) and font "yoshi" and size 5 and color orange
   gameover.draw clear
   if(level==2) {
   	b.material="desert1"
@@ -37,6 +37,13 @@ start_next_stage = {
 	active_balls=0
 	balls_limit=balls_limit+1
   
+  for each box (el): name "elv" { async
+  	el.turn 360 in 1 second async
+  	effects.flame.show : pos (el) and radius = 1 and duration 2 
+  	el.kill
+  }
+
+  
   p.hip_hop async
   p.pos(0,5,0)
   p.character.jump at speed of 20
@@ -45,6 +52,9 @@ start_next_stage = {
   game_status=1
 	p.running loop
 	run move_mouse async
+	is_throwing_balls=1
   run throw_ball
-  level.print ""
+  
+  
+  level.print "Level "+round(level) : pos (10,700,0) and size 2
 }
